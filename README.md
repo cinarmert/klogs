@@ -23,8 +23,6 @@ Flags:
   -k, --kubeconfig string   Kubeconfig file path
   -n, --namespace string    Kubernetes namespace to use, uses current namespace if not specified 
   -v, --verbose             print debug logs
-
-
 ```
 
 # Installation
