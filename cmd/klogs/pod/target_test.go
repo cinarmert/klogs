@@ -50,7 +50,7 @@ func TestNewLogThread(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewTarget(tt.args.context, tt.args.namespace, tt.args.pod, tt.args.container); !reflect.DeepEqual(got, tt.want) {
+			if got := NewTarget(tt.args.context, tt.args.namespace, tt.args.pod, tt.args.container, 0); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewTarget() = %v, want %v", got, tt.want)
 			}
 		})

@@ -41,6 +41,7 @@ func parseArgs(arg string) (_ *LogOp, err error) {
 		Config:    config,
 		targets:   nil,
 		clientSet: clientSet,
+		tail:      config.Tail,
 	}, nil
 }
 

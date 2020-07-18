@@ -13,11 +13,12 @@ import (
 type Manager struct {
 	Pods   *v1.PodList
 	Config *config.Config
+	tail   int64
 }
 
 // NewManagerFromClientSet returns a Manager instance for a given clientset.
 func NewManagerFromClientSet(clientSet *kubernetes.Clientset, config *config.Config) (pm *Manager, err error) {
-	pm = &Manager{}
+	pm = &Manager{tail: config.Tail}
 	pm.Pods, err = clientSet.CoreV1().Pods(config.Namespace).List(metav1.ListOptions{})
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to list pods")
@@ -47,7 +48,7 @@ func (pm *Manager) getTargetsFromPod(pod *v1.Pod) (res []*Target) {
 
 	for _, c := range containers {
 		if pm.Config.ContainerRegex.MatchString(c.Name) {
-			t := NewTarget(pm.Config.Context, pod.Namespace, pod.Name, c.Name)
+			t := NewTarget(pm.Config.Context, pod.Namespace, pod.Name, c.Name, pm.tail)
 			res = append(res, t)
 		}
 	}

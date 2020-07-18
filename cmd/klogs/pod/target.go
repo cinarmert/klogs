@@ -16,15 +16,17 @@ type Target struct {
 	Namespace string
 	Pod       string
 	Container string
+	tail      int64
 }
 
 // NewTarget return a target instance.
-func NewTarget(context, namespace, pod, container string) *Target {
+func NewTarget(context, namespace, pod, container string, tail int64) *Target {
 	return &Target{
 		Context:   context,
 		Namespace: namespace,
 		Pod:       pod,
 		Container: container,
+		tail:      tail,
 	}
 }
 
@@ -34,6 +36,7 @@ func (l *Target) StartThread(core v1.CoreV1Interface, wg *sync.WaitGroup, w io.W
 	request := core.Pods(l.Namespace).GetLogs(l.Pod, &corev1.PodLogOptions{
 		Container: l.Container,
 		Follow:    false,
+		TailLines: &l.tail,
 	})
 	rc, err := request.Stream()
 	if err != nil {
