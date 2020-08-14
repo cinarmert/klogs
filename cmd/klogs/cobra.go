@@ -25,6 +25,7 @@ func init() {
 	rootcmd.Flags().StringVarP(&config.Context, "context", "x", "", "Kubernetes context to use, default is $(kubectl config current-context)")
 	rootcmd.Flags().StringVarP(&config.Namespace, "namespace", "n", "", "Kubernetes namespace to use, uses current namespace if not specified ")
 	rootcmd.Flags().StringVarP(&config.ContainerFilter, "container", "c", ".*", "Regex to specify the containers to fetch logs from")
+	rootcmd.Flags().Int64VarP(&config.Tail, "tail", "t", 100, "Number of lines to start tailing from")
 	rootcmd.Flags().BoolP("verbose", "v", false, "print debug logs")
 	log.SetLevel(log.WarnLevel)
 }

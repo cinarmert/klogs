@@ -17,6 +17,7 @@ type LogOp struct {
 	ContainerFilter *regexp.Regexp
 	targets         []*pod.Target
 	clientSet       *kubernetes.Clientset
+	tail            int64
 }
 
 // Run is the entrypoint for fetching logs from all targets. It starts

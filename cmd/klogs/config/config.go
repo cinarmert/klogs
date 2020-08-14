@@ -9,6 +9,7 @@ type Config struct {
 	Namespace       string
 	PodFilter       string
 	ContainerFilter string
+	Tail            int64
 	PodRegex        *regexp.Regexp
 	ContainerRegex  *regexp.Regexp
 }
